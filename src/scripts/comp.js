@@ -71,45 +71,49 @@ const students = [
         info: "Needs to contribute to in-class discussions",
         score: 95
     }
-]
+];
 
-const h1 = (title, style) => {
-    return `<h1 class="${style}">${title}</h1>`;
-};
 
-const section = (title, style) => {
-    return `<section class="bordered dashed ${style}">${title}</section>`;
-};
-
-const aside = (title, style) => {
-    return `<aside class="${style}">${title}</aside>`;
-};
-const pass = (style) => {
-    return `<p class ="${style}"> PASS </p> `
-};
-const fail = (style) => {
-    return `<p class ="${style}"> FAIL </p> `
+//REST Operator exercise plus generic HTML function that will create a HTML element from the object list above. 
+const studentEl = (...prop) => {
+ return `<${prop[0]} class = "${prop[2]}"> ${prop[1]} </${prop[0]}>`;
 };
 
 
+// const h2 = (...prop) => {
+//     return `<h2 class="${prop[1]}">${prop[0]}</h1>`;
+// };
+
+// const section = (...prop) => {
+//     return `<section class="bordered dashed ${prop[1]}">${prop[0]}</section>`;
+// };
+
+// const aside = (...prop) => {
+//     return `<aside class="${prop[1]}">${prop[0]}</aside>`;
+// };
+const pass = (...prop) => {
+    return `<p class ="${prop[0]}"> PASS </p> `;
+};
+const fail = (...prop) => {
+    return `<p class ="${prop[0]}"> FAIL </p> `;
+};
 
 
 const studentCreatorPassing = (name, clasS, info) => {
    return `<div id="student">
-        ${h1(name, "xx-large")}
-        ${section(clasS, "section--padded")}
-        ${aside(info, "pushRight")}
+        ${studentEl("h2", name, "xx-large")}
+        ${studentEl("section", clasS, "bordered")}
+        ${studentEl("aside", info, "pushRight")}
         ${pass ("passing")}
-        </div> `
+        </div> `;
     };
-    
     const studentCreatorFailing = (name, clasS, info) => {
         return `<div id="student">
-        ${h1(name, "xx-large")}
-        ${section(clasS, "section--padded")}
-        ${aside(info, "pushRight")}
+        ${studentEl("h2", name, "xx-large")}
+        ${studentEl("section", clasS, "bordered")}
+        ${studentEl("aside", info, "pushRight")}
         ${fail ("failing")}
-    </div> `
+    </div> `;
 };
 
 // const container = document.querySelector("#container");
@@ -119,17 +123,12 @@ let container = document.querySelector("#container");
 
 const getLooped = () => {
 for (student of students) {
-
     if (student.score >= 60) {
         container.innerHTML += studentCreatorPassing(student.name, student.clasS, student.info);
-      
-       
     } else {
         container.innerHTML += studentCreatorFailing(student.name, student.clasS, student.info);
     }
-    
 }
     return container;
-};  
-
-console.log(getLooped());
+};
+getLooped();
